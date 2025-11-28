@@ -1116,7 +1116,7 @@ class ArrayWranglerModuleLogic(ScriptedLoadableModuleLogic):
         # Color Table doesn't accept large numbers like 100+, 200+ either
         label_img_enum_copy = slogic.make_consequtive_labels(
             enum_img=label_img_enum_copy, sparse_labels=final_labels
-        )
+        ).astype(np.int16)
         if boolVerbose:
             logging.info(
                 f"{label_img_enum_copy.shape = } {label_img_enum_copy.dtype = }"
@@ -1854,4 +1854,5 @@ def extractNodes(shNd, key_name, nodeClass="vtkMRMLScalarVolumeNode"):
     )
     nodes_dict = {node.GetName(): node for node in nodes}
     return nodes_dict
+
 
