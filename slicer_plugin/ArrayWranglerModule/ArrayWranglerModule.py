@@ -26,7 +26,17 @@ from sort_library import sorting_logic as slogic
 from scipy import ndimage as ndi
 import numpy as np
 import random
-import skimage as ski
+
+# check if skimage is installed, if not - install it
+try:
+    import skimage as ski
+except ModuleNotFoundError:
+    if slicer.util.confirmOkCancelDisplay(
+        "This module requires 'scikit-image' Python package. "
+        "Click OK to install it now."
+    ):
+        slicer.util.pip_install("scikit-image")
+        import skimage as ski
 
 logging.basicConfig(level=logging.DEBUG)
 
@@ -1844,3 +1854,4 @@ def extractNodes(shNd, key_name, nodeClass="vtkMRMLScalarVolumeNode"):
     )
     nodes_dict = {node.GetName(): node for node in nodes}
     return nodes_dict
+
